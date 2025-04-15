@@ -20,11 +20,19 @@ export default function ImageGallery() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GeneratedImage | null>(null);
 
-  useEffect(() => {
+  const loadImages = () => {
     const storedImages = localStorage.getItem('generatedImages');
     if (storedImages) {
       setImages(JSON.parse(storedImages));
     }
+  };
+
+  useEffect(() => {
+    loadImages();
+    
+    const interval = setInterval(loadImages, 1000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);

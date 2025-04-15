@@ -18,11 +18,17 @@
 
 @layer base {
   body {
-    @apply text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-900;
+    @apply text-gray-900 dark:text-gray-100;
+    background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
+    min-height: 100vh;
   }
 }
 
 @layer components {
+  .form-container {
+    @apply bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-6 shadow-xl;
+  }
+
   .btn-primary {
     @apply px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }

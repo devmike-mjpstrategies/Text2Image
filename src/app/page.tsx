@@ -81,28 +81,32 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-12">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-4xl font-bold text-white">
             AI Image Generator
           </h1>
-          <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-lg text-gray-200">
             Create stunning images using AI
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-8">
-            <ImageGenerationForm onGenerate={handleGenerate} isLoading={isLoading} />
-            <ImageDisplay
-              imageUrl={imageUrl}
-              isLoading={isLoading}
-              error={error}
-              metadata={metadata || undefined}
-            />
+            <div className="form-container">
+              <ImageGenerationForm onGenerate={handleGenerate} isLoading={isLoading} />
+            </div>
+            <div className="form-container">
+              <ImageDisplay
+                imageUrl={imageUrl}
+                isLoading={isLoading}
+                error={error}
+                metadata={metadata || undefined}
+              />
+            </div>
           </div>
-          <div>
+          <div className="form-container">
             <ImageGallery />
           </div>
         </div>
