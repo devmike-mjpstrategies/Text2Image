@@ -12,7 +12,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const { prompt } = await request.json();
+  const {
+    prompt,
+    negative_prompt,
+    width,
+    height,
+    num_inference_steps,
+    guidance_scale,
+    scheduler,
+  } = await request.json();
 
   try {
     const output = await replicate.run(
@@ -20,11 +28,13 @@ export async function POST(request: Request) {
       {
         input: {
           prompt: prompt,
-          image_dimensions: "512x512",
+          negative_prompt: negative_prompt || "",
+          width: width || 512,
+          height: height || 512,
           num_outputs: 1,
-          num_inference_steps: 50,
-          guidance_scale: 7.5,
-          scheduler: "DPMSolverMultistep",
+          num_inference_steps: num_inference_steps || 50,
+          guidance_scale: guidance_scale || 7.5,
+          scheduler: scheduler || "DPMSolverMultistep",
         },
       }
     );
@@ -32,6 +42,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ output }, { status: 200 });
   } catch (error) {
     console.error("Error from Replicate API:", error);
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
